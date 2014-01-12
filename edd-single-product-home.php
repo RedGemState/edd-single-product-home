@@ -93,7 +93,9 @@ class Astoundify_EDD_SPH {
 	 */
 	public function settings_field() {
 		echo EDD()->html->product_dropdown( array(
-			'chosen' => true
+			'chosen'   => true,
+			'name'     => 'edd_sph_product',
+			'selected' => get_option( 'edd_sph_product', 0 )
 		) );
 	}
 
