@@ -43,35 +43,6 @@ class Astoundify_EDD_SPH {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->setup_globals();
-		$this->setup_actions();
-	}
-
-	/**
-	 * Set some smart defaults to class variables.
-	 *
-	 * @since EDD SPH 1.0
-	 *
-	 * @param void
-	 * @return void
-	 */
-	private function setup_globals() {
-		$this->file         = __FILE__;
-
-		$this->basename     = plugin_basename( $this->file );
-		$this->plugin_dir   = plugin_dir_path( $this->file );
-		$this->plugin_url   = plugin_dir_url ( $this->file );
-	}
-
-	/**
-	 * Hooks and stuff.
-	 *
-	 * @since EDD SPH 1.0
-	 *
-	 * @param void
-	 * @return void
-	 */
-	private function setup_actions() {
 		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 		add_action( 'admin_init', array( $this, 'add_settings' ) );
 	}
