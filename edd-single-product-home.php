@@ -57,10 +57,10 @@ class Astoundify_EDD_SPH {
 	 */
 	private function setup_globals() {
 		$this->file         = __FILE__;
-		
+
 		$this->basename     = plugin_basename( $this->file );
 		$this->plugin_dir   = plugin_dir_path( $this->file );
-		$this->plugin_url   = plugin_dir_url ( $this->file ); 
+		$this->plugin_url   = plugin_dir_url ( $this->file );
 	}
 
 	/**
@@ -87,10 +87,10 @@ class Astoundify_EDD_SPH {
 	public function pre_get_posts( $query ) {
 		if ( ! $query->is_main_query() || is_admin() || ! ( $query->is_home || ( isset( $query->query_vars[ 'page_id' ] ) && $query->query_vars[ 'page_id' ] == get_option( 'page_on_front' ) ) ) )
 			return;
-		
+
 		$query->set( 'p', get_option( 'edd_sph_product' ) );
 		$query->set( 'page_id', 0 );
-		
+
 		$query->is_single = true;
 		$query->is_front_page = false;
 		$query->is_page = false;
@@ -121,22 +121,10 @@ class Astoundify_EDD_SPH {
 	 * @return void
 	 */
 	public function settings_field() {
-		$products = new WP_Query( array(
-			'post_type'   => 'download',
-			'nopaging'    => true,
-			'post_status' => 'publish'
+		echo EDD()->html->product_dropdown( array(
+			'chosen' => true
 		) );
-
-		if ( ! $products->have_posts() )
-			return;
-	?>
-		<select name="edd_sph_product">
-			<?php while ( $products->have_posts() ) : $products->the_post(); ?>
-			<option value="<?php echo esc_attr( get_post()->ID ); ?>" <?php selected( get_post()->ID, get_option( 'edd_sph_product' ) ); ?>><?php echo get_the_title( get_post()->ID ); ?></option>
-			<?php endwhile; ?>
-		</select>
-	<?php
 	}
-	
+
 }
 add_action( 'plugins_loaded', array( 'Astoundify_EDD_SPH', 'instance' ) );
